@@ -4,12 +4,20 @@
   color: #0f172a;
 }
 
+/* garante box-sizing consistente em tudo */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 /* garante altura total pro flex */
 html,
 body {
   height: 100%;
   margin: 0;
   padding: 0;
+  overflow-x: hidden; /* evita scroll horizontal se algo escapar por 1px */
 }
 
 /* sobrescreve o estilo padrão do Vite pro root */
@@ -24,11 +32,11 @@ body {
 
 /* fundo + centralização vertical e horizontal */
 .app {
-  min-height: 100vh; /* melhor para cobrir a tela toda */
+  min-height: 100vh; /* cobre a tela toda */
   width: 100%;
   display: flex;
-  justify-content: center;  /* centro horizontal */
-  align-items: center;      /* centro vertical */
+  justify-content: center; /* centro horizontal */
+  align-items: center; /* centro vertical */
   padding: 24px;
   background: radial-gradient(
     circle at top,
@@ -36,13 +44,20 @@ body {
     #f1f5f9 45%,
     #e5e7eb 100%
   );
-  box-sizing: border-box;
+}
+
+/* em telas muito estreitas, diminui um pouco o padding pra não vazar */
+@media (max-width: 480px) {
+  .app {
+    padding: 12px;
+  }
 }
 
 /* container principal limitado */
 .layout {
   width: 100%;
   max-width: 960px;
+  margin: 0 auto;
 }
 
 /* header */
@@ -93,6 +108,7 @@ body {
   padding: 18px 20px;
   box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
   border: 1px solid rgba(148, 163, 184, 0.3);
+  max-width: 100%; /* nunca passa da largura disponível */
 }
 
 .card-header {
@@ -145,8 +161,8 @@ body {
 .fields-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  column-gap: 24px;   /* espaço entre as colunas (Marca / Modelo / Ano) */
-  row-gap: 14px;      /* espaço vertical se quebrar pra linha de baixo no mobile */
+  column-gap: 24px; /* espaço lateral entre Marca / Modelo / Ano */
+  row-gap: 14px;
 }
 
 @media (max-width: 900px) {
@@ -177,7 +193,7 @@ body {
   font-size: 14px;
   outline: none;
   transition: all 0.15s ease;
-  color: #0f172a;        /* garante que o texto fique visível */
+  color: #0f172a; /* garante que o texto fique visível */
 }
 
 /* placeholder visível */
@@ -185,7 +201,7 @@ body {
   color: #9ca3af;
 }
 
-/* se quiser garantir a cor das opções dos datalist */
+/* datalist */
 datalist option {
   color: #0f172a;
   background: #ffffff;
