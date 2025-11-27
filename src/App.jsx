@@ -377,7 +377,7 @@ function App() {
 
         <footer className="app-footer">
           <span>
-            Projeto para analise de veículos • FIPE • {new Date().getFullYear()}
+            Gabriel Silva Projeto para analise de veículos • FIPE • {new Date().getFullYear()}
           </span>
         </footer>
       </div>
