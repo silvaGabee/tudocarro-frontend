@@ -5,7 +5,7 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: #0b0b0f;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -24,8 +24,6 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
   min-width: 320px;
   min-height: 100vh;
 }
@@ -65,4 +63,18 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+#root {
+  display: block !important;
+  min-height: 100vh;
+}
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  background: #0b0b0f;
+}
+.app {
+  min-height: 100vh;
 }
