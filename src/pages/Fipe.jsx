@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import "../App.css";
 
-const API_URL = import.meta.env.VITE_API_URL;
+const API_URL =
+  import.meta.env.VITE_API_URL || "https://tudocarro-backend.onrender.com/api/cars";
 
 function Fipe() {
   const [brands, setBrands] = useState([]);
@@ -110,9 +111,7 @@ function Fipe() {
     );
 
     if (found) {
-      if (found.codigo !== brandCode) {
-        setBrandCode(found.codigo);
-      }
+      if (found.codigo !== brandCode) setBrandCode(found.codigo);
     } else {
       setBrandCode("");
     }
@@ -135,9 +134,7 @@ function Fipe() {
     );
 
     if (found) {
-      if (found.codigo !== modelCode) {
-        setModelCode(found.codigo);
-      }
+      if (found.codigo !== modelCode) setModelCode(found.codigo);
     } else {
       setModelCode("");
     }
@@ -159,6 +156,7 @@ function Fipe() {
     typeof details?.hasExtraSpecs === "boolean"
       ? details.hasExtraSpecs
       : !!specs;
+
   const specsMessage =
     details?.message ||
     "Nenhuma especificação extra encontrada para este modelo. Você ainda pode usar as informações da FIPE acima.";
@@ -166,20 +164,17 @@ function Fipe() {
   const mapFuelType = (fuel) => {
     if (!fuel) return "-";
     const f = String(fuel).toLowerCase();
-
     if (f === "gas" || f === "gasoline" || f === "petrol") return "Gasolina";
     if (f === "diesel") return "Diesel";
     if (f === "electricity" || f === "ev" || f === "electric") return "Elétrico";
     if (f.includes("flex")) return "Flex";
     if (f.includes("hybrid")) return "Híbrido";
-
     return fuel;
   };
 
   const mapTransmission = (trans) => {
     if (!trans) return "-";
     const t = String(trans).toLowerCase();
-
     if (t === "a" || t.includes("auto")) return "Automática";
     if (t === "m" || t.includes("manual")) return "Manual";
     return trans;
@@ -188,12 +183,10 @@ function Fipe() {
   const mapDrive = (drive) => {
     if (!drive) return "-";
     const d = String(drive).toLowerCase();
-
     if (d === "awd" || d.includes("all")) return "Integral (AWD)";
     if (d === "4wd") return "4x4 (4WD)";
     if (d === "fwd" || d.includes("front")) return "Dianteira (FWD)";
     if (d === "rwd" || d.includes("rear")) return "Traseira (RWD)";
-
     return drive;
   };
 
@@ -215,7 +208,6 @@ function Fipe() {
           <div className="main-left">
             {error && <p className="alert alert-error">{error}</p>}
 
-            {/* Buscar veículo */}
             <section className="card search-card">
               <div className="card-header">
                 <div>
@@ -239,7 +231,6 @@ function Fipe() {
               </div>
 
               <div className="fields-grid">
-                {/* Marca */}
                 <div className="field">
                   <label className="field-label">Marca</label>
                   <input
@@ -255,12 +246,9 @@ function Fipe() {
                       <option key={b.codigo} value={b.nome} />
                     ))}
                   </datalist>
-                  <p className="field-hint">
-                    Digite a marca e escolha uma opção sugerida.
-                  </p>
+                  <p className="field-hint">Digite a marca e escolha uma opção sugerida.</p>
                 </div>
 
-                {/* Modelo */}
                 <div className="field">
                   <label className="field-label">Modelo</label>
                   <input
@@ -268,9 +256,7 @@ function Fipe() {
                     list="model-options"
                     value={modelSearch}
                     onChange={handleModelInput}
-                    placeholder={
-                      brandCode ? "Ex: 320i, Gol, Civic..." : "Selecione uma marca primeiro"
-                    }
+                    placeholder={brandCode ? "Ex: 320i, Gol, Civic..." : "Selecione uma marca primeiro"}
                     disabled={!brandCode}
                     className="field-input"
                   />
@@ -279,12 +265,9 @@ function Fipe() {
                       <option key={m.codigo} value={m.nome} />
                     ))}
                   </datalist>
-                  <p className="field-hint">
-                    Os modelos são filtrados pela marca escolhida.
-                  </p>
+                  <p className="field-hint">Os modelos são filtrados pela marca escolhida.</p>
                 </div>
 
-                {/* Ano */}
                 <div className="field">
                   <label className="field-label">Ano</label>
                   <select
@@ -300,14 +283,11 @@ function Fipe() {
                       </option>
                     ))}
                   </select>
-                  <p className="field-hint">
-                    Mostramos apenas os anos disponíveis na FIPE.
-                  </p>
+                  <p className="field-hint">Mostramos apenas os anos disponíveis na FIPE.</p>
                 </div>
               </div>
             </section>
 
-            {/* Detalhes do veículo (FIPE) */}
             <section className="card details-card">
               <div className="card-header">
                 <div>
@@ -327,10 +307,7 @@ function Fipe() {
 
               {!loadingDetails && !details && (
                 <div className="details-placeholder">
-                  <p>
-                    Comece selecionando marca, modelo e ano para ver os detalhes
-                    aqui.
-                  </p>
+                  <p>Comece selecionando marca, modelo e ano para ver os detalhes aqui.</p>
                 </div>
               )}
 
@@ -341,8 +318,7 @@ function Fipe() {
                       <div>
                         <h3>{details.fipe.Modelo}</h3>
                         <p className="details-sub">
-                          {details.fipe.Marca} • {details.fipe.AnoModelo} •{" "}
-                          {details.fipe.Combustivel}
+                          {details.fipe.Marca} • {details.fipe.AnoModelo} • {details.fipe.Combustivel}
                         </p>
                       </div>
                       <div className="price-badge">
@@ -399,10 +375,7 @@ function Fipe() {
 
               {!loadingDetails && !details && (
                 <div className="details-placeholder">
-                  <p>
-                    Selecione um veículo na coluna à esquerda para ver as
-                    especificações aqui.
-                  </p>
+                  <p>Selecione um veículo na coluna à esquerda para ver as especificações aqui.</p>
                 </div>
               )}
 
@@ -462,19 +435,21 @@ function Fipe() {
                         <span className="details-item-value">{specs.body_style || "-"}</span>
                       </div>
 
-                      {specs.city_mpg && !String(specs.city_mpg).toLowerCase().includes("premium") && (
-                        <div className="details-item">
-                          <span className="details-item-label">Consumo cidade</span>
-                          <span className="details-item-value">{specs.city_mpg} mpg</span>
-                        </div>
-                      )}
+                      {specs.city_mpg &&
+                        !String(specs.city_mpg).toLowerCase().includes("premium") && (
+                          <div className="details-item">
+                            <span className="details-item-label">Consumo cidade</span>
+                            <span className="details-item-value">{specs.city_mpg} mpg</span>
+                          </div>
+                        )}
 
-                      {specs.highway_mpg && !String(specs.highway_mpg).toLowerCase().includes("premium") && (
-                        <div className="details-item">
-                          <span className="details-item-label">Consumo estrada</span>
-                          <span className="details-item-value">{specs.highway_mpg} mpg</span>
-                        </div>
-                      )}
+                      {specs.highway_mpg &&
+                        !String(specs.highway_mpg).toLowerCase().includes("premium") && (
+                          <div className="details-item">
+                            <span className="details-item-label">Consumo estrada</span>
+                            <span className="details-item-value">{specs.highway_mpg} mpg</span>
+                          </div>
+                        )}
                     </div>
                   ) : (
                     <p className="details-note">{specsMessage}</p>
