@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000/api/fipe";
 
@@ -130,35 +131,51 @@ export default function Home() {
           {[
             {
               title: "Consulte FIPE",
-              text: "Veja valor de mercado pela tabela FIPE e referência do mês."
+              text: "Veja valor de mercado pela tabela FIPE e referência do mês.",
+              to: "/fipe"
             },
             {
               title: "Compare carros",
-              text: "Compare dois veículos lado a lado (preço, ano, specs)."
+              text: "Compare dois veículos lado a lado (preço, ano, especificações).",
+              to: "/comparacao"
             },
             {
               title: "Fique por dentro",
-              text: "Notícias de carros, leilões e mercado automotivo."
+              text: "Notícias de carros, leilões e mercado automotivo.",
+              to: null
             }
-          ].map((c, i) => (
-            <div
-              key={i}
-              style={{
-                padding: 16,
-                borderRadius: 14,
-                background: "rgba(255,255,255,0.05)",
-                border: "1px solid rgba(255,255,255,0.10)",
-                color: "#fff"
-              }}
-            >
-              <strong style={{ display: "block", marginBottom: 6 }}>
-                {c.title}
-              </strong>
-              <span style={{ opacity: 0.85, fontSize: 13 }}>
-                {c.text}
-              </span>
-            </div>
-          ))}
+          ].map((c, i) => {
+            const cardStyle = {
+              padding: 16,
+              borderRadius: 14,
+              background: "rgba(255,255,255,0.05)",
+              border: "1px solid rgba(255,255,255,0.10)",
+              color: "#fff",
+              textDecoration: "none",
+              display: "block",
+              cursor: c.to ? "pointer" : "default",
+              transition: "background 0.2s, border-color 0.2s"
+            };
+            const content = (
+              <>
+                <strong style={{ display: "block", marginBottom: 6 }}>
+                  {c.title}
+                </strong>
+                <span style={{ opacity: 0.85, fontSize: 13 }}>
+                  {c.text}
+                </span>
+              </>
+            );
+            return c.to ? (
+              <Link key={i} to={c.to} style={cardStyle} className="home-card-link">
+                {content}
+              </Link>
+            ) : (
+              <div key={i} style={cardStyle}>
+                {content}
+              </div>
+            );
+          })}
         </div>
       </div>
 

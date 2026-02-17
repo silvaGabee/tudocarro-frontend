@@ -1,7 +1,8 @@
-import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
+import { BrowserRouter, Routes, Route, NavLink, Navigate } from "react-router-dom";
 import Home from "./pages/Home.jsx";
 import Fipe from "./pages/Fipe.jsx";
 import Compare from "./pages/Compare.jsx";
+import CarrosAVenda from "./pages/CarrosAVenda.jsx";
 
 function Navbar() {
   const linkStyle = ({ isActive }) => ({
@@ -55,7 +56,7 @@ function Navbar() {
           <div>
             <div style={{ fontWeight: 700, color: "#fff" }}>TudoCarro</div>
             <div style={{ fontSize: 12, opacity: 0.7, color: "#fff" }}>
-              FIPE • notícias • comparação
+              FIPE • notícias • comparação • comprar
             </div>
           </div>
         </div>
@@ -69,6 +70,9 @@ function Navbar() {
           </NavLink>
           <NavLink to="/comparacao" style={linkStyle}>
             Comparação
+          </NavLink>
+          <NavLink to="/carros-a-venda" style={linkStyle}>
+            Carros à venda
           </NavLink>
         </nav>
       </div>
@@ -84,6 +88,8 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/fipe" element={<Fipe />} />
         <Route path="/comparacao" element={<Compare />} />
+        <Route path="/carros-a-venda" element={<CarrosAVenda />} />
+        <Route path="/comprar" element={<Navigate to="/carros-a-venda" replace />} />
       </Routes>
     </BrowserRouter>
   );

@@ -5,7 +5,7 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #0b0b0f;
+  background-color: #020617;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -26,6 +26,16 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
+  /* Fundo azul marinho em toda a altura da página ao rolar */
+  background: radial-gradient(
+      circle at top,
+      #0f172a 0,
+      #0a0f1a 35%,
+      #020617 70%,
+      #020617 100%
+    )
+    fixed;
+  background-color: #020617;
 }
 
 h1 {
@@ -68,13 +78,44 @@ button:focus-visible {
   display: block !important;
   min-height: 100vh;
 }
-html, body, #root {
-  height: 100%;
+html {
+  min-height: 100%;
+  background: #020617;
 }
-
+html,
+body,
+#root {
+  min-height: 100%;
+}
 body {
-  background: #0b0b0f;
+  background: radial-gradient(
+      circle at top,
+      #0f172a 0,
+      #0a0f1a 35%,
+      #020617 70%,
+      #020617 100%
+    )
+    fixed;
+  background-color: #020617;
 }
 .app {
   min-height: 100vh;
+}
+
+/* Cartões clicáveis da Home */
+.home-card-link:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+  border-color: rgba(255, 255, 255, 0.18) !important;
+}
+
+/* Comparação: duas colunas em telas grandes, uma em telas pequenas */
+.compare-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+@media (max-width: 700px) {
+  .compare-grid {
+    grid-template-columns: 1fr;
+  }
 }
